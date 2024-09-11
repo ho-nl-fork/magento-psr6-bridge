@@ -1,5 +1,5 @@
 {
-    "name": "ecomdev/magento-psr6-bridge",
+    "name": "ho-nl-fork/magento-psr6-bridge",
     "description": "A bridge between Magento framework and PSR-6 cache compatible libraries.",
     "type": "magento2-module",
     "require": {
