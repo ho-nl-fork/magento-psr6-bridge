@@ -86,7 +86,7 @@ class CacheItemPool implements CacheItemPoolInterface
         $keyPrefix,
         array $tags = []
     ) {
-    
+
         $this->cacheFrontend = $cacheFrontend;
         $this->cacheItemFactory = $cacheItemFactory;
         $this->tags = $tags;
@@ -110,7 +110,7 @@ class CacheItemPool implements CacheItemPoolInterface
      * @return CacheItemInterface
      *   The corresponding Cache Item.
      */
-    public function getItem($key)
+    public function getItem($key): CacheItemInterface
     {
         $cacheEntry = $this->cacheFrontend->load(
             $this->prepareKey($key)
@@ -140,7 +140,7 @@ class CacheItemPool implements CacheItemPoolInterface
      *   key is not found. However, if no keys are specified then an empty
      *   traversable MUST be returned instead.
      */
-    public function getItems(array $keys = array())
+    public function getItems(array $keys = array()): iterable
     {
         $result = [];
 
@@ -168,7 +168,7 @@ class CacheItemPool implements CacheItemPoolInterface
      * @return bool
      *  True if item exists in the cache, false otherwise.
      */
-    public function hasItem($key)
+    public function hasItem($key): bool
     {
         if ($this->cacheFrontend->load($this->prepareKey($key)) !== false) {
             return true;
@@ -183,7 +183,7 @@ class CacheItemPool implements CacheItemPoolInterface
      * @return bool
      *   True if the pool was successfully cleared. False if there was an error.
      */
-    public function clear()
+    public function clear(): bool
     {
         if (empty($this->tags)) {
             return false;
@@ -205,7 +205,7 @@ class CacheItemPool implements CacheItemPoolInterface
      * @return bool
      *   True if the item was successfully removed. False if there was an error.
      */
-    public function deleteItem($key)
+    public function deleteItem($key): bool
     {
         return $this->cacheFrontend->remove(
             $this->prepareKey($key)
@@ -225,7 +225,7 @@ class CacheItemPool implements CacheItemPoolInterface
      * @return bool
      *   True if the items were successfully removed. False if there was an error.
      */
-    public function deleteItems(array $keys)
+    public function deleteItems(array $keys): bool
     {
         foreach ($keys as $key) {
             if (!$this->deleteItem($key)) {
@@ -247,7 +247,7 @@ class CacheItemPool implements CacheItemPoolInterface
      *
      * @throws InvalidArgumentException
      */
-    public function save(CacheItemInterface $item)
+    public function save(CacheItemInterface $item): bool
     {
         $expirationTime = null;
 
@@ -276,7 +276,7 @@ class CacheItemPool implements CacheItemPoolInterface
      * @return bool
      *   False if the item could not be queued or if a commit was attempted and failed. True otherwise.
      */
-    public function saveDeferred(CacheItemInterface $item)
+    public function saveDeferred(CacheItemInterface $item): bool
     {
         $this->defferedItems[] = $item;
         return true;
@@ -288,7 +288,7 @@ class CacheItemPool implements CacheItemPoolInterface
      * @return bool
      *   True if all not-yet-saved items were successfully saved or there were none. False otherwise.
      */
-    public function commit()
+    public function commit(): bool
     {
         foreach ($this->defferedItems as $item) {
             $this->save($item);

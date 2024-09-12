@@ -85,7 +85,7 @@ class CacheItem implements
      * @return string
      *   The key string for this cache item.
      */
-    public function getKey()
+    public function getKey(): string
     {
         return $this->key;
     }
@@ -102,7 +102,7 @@ class CacheItem implements
      * @return mixed
      *   The value corresponding to this cache item's key, or null if not found.
      */
-    public function get()
+    public function get(): mixed
     {
         return $this->isHit() ? $this->value : null;
     }
@@ -116,7 +116,7 @@ class CacheItem implements
      * @return bool
      *   True if the request resulted in a cache hit. False otherwise.
      */
-    public function isHit()
+    public function isHit(): bool
     {
         return $this->isHit;
     }
@@ -134,7 +134,7 @@ class CacheItem implements
      * @return static
      *   The invoked object.
      */
-    public function set($value)
+    public function set($value): static
     {
         $this->value = $value;
         return $this;
@@ -152,7 +152,7 @@ class CacheItem implements
      * @return static
      *   The called object.
      */
-    public function expiresAt($expiration)
+    public function expiresAt($expiration): static
     {
         $now = new \DateTime('now', $expiration->getTimezone());
         $this->cacheLifetime = $expiration->getTimestamp() - $now->getTimestamp();
@@ -173,7 +173,7 @@ class CacheItem implements
      * @return static
      *   The called object.
      */
-    public function expiresAfter($time)
+    public function expiresAfter($time): static
     {
         if ($time instanceof \DateInterval) {
             $now = new \DateTime();
