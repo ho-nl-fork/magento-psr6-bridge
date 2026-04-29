@@ -12,7 +12,7 @@
         "squizlabs/php_codesniffer": "*",
         "phpmd/phpmd": "^2.3",
         "satooshi/php-coveralls": "dev-master",
-        "mikey179/vfsStream": "^1.6",
+        "mikey179/vfsstream": "^1.6",
         "henrikbjorn/phpspec-code-coverage": "^2.0",
         "phpspec/nyan-formatters": "^1.0",
         "ecomdev/phpspec-magento-di-adapter": "~0.1",
